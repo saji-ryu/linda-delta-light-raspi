@@ -1,0 +1,25 @@
+{
+  "name": "linda-delta-door-raspi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saji-ryu/linda-delta-door-raspi.git"
+  },
+  "author": "RyuseiSajiki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saji-ryu/linda-delta-door-raspi/issues"
+  },
+  "homepage": "https://github.com/saji-ryu/linda-delta-door-raspi#readme",
+  "dependencies": {
+    "johnny-five": "^0.14.3",
+    "linda": "^1.2.2",
+    "raspi-io": "^8.1.1",
+    "socket.io-client": "^2.1.0"
+  }
+}
