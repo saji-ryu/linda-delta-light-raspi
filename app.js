@@ -22,7 +22,6 @@ board.on("ready", () => {
 
     linda.io.on('connect', () => {
         console.log('connect!!!');
-        let last_at = Date.now();
 
         let moveServo = (callback) => {
             servo.to(270, 800);
@@ -44,8 +43,8 @@ board.on("ready", () => {
                 where: 'delta',
                 type: 'sensor',
                 name: 'light'
-            }, (err, tuple) => {
-                if (tuple.data.value > 100) {
+            }, (err, sensorTuple) => {
+                if (sensorTuple.data.value > 100) {
                     console.log("すでに電気ついてる");
                 } else {
                     responseTuple.response = 'success';
@@ -69,8 +68,8 @@ board.on("ready", () => {
                 where: 'delta',
                 type: 'sensor',
                 name: 'light'
-            }, (err, tuple) => {
-                if (tuple.data.value < 100) {
+            }, (err, sensorTuple) => {
+                if (sensorTuple.data.value < 100) {
                     console.log("すでに消えている");
                 } else {
                     responseTuple.response = 'success';
