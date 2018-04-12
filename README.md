@@ -16,4 +16,5 @@ lindaサーバのタプルを監視し、それに合わせてdeltaの明かり�
 (その他の環境で`npm install`するとエラーになります)
 
 # 参考
-[ドアサーバー](https://github.com/saji-ryu/linda-delta-door-raspi)
+- [ドアサーバー](https://github.com/saji-ryu/linda-delta-door-raspi)とほぼ同じになります
+- [Node Lindaについて](https://github.com/node-linda/linda)
