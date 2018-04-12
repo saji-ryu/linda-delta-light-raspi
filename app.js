@@ -31,25 +31,55 @@ board.on("ready", () => {
                 callback();
             });
         }
-        
+
         ts.watch({
             where: "delta",
-            type: "door",
-            cmd: "open"
+            name: "light",
+            cmd: "on"
         }, (err, tuple) => {
             console.log("> " + JSON.stringify(tuple.data) + " (from:" + tuple.from + ")");
             let responseTuple = tuple.data;
-            if (err) {
-                responseTuple.response = 'error'
-                ts.write(responseTuple);
-            } else if (last_at + 5000 < Date.now()) {
-                last_at = Date.now();
-                responseTuple.response = 'success';
-                console.log('> response=' + JSON.stringify(responseTuple));
-                moveServo(() => {
-                    ts.write(responseTuple);
-                });
-            }
+
+            ts.take({
+                where: 'delta',
+                type: 'sensor',
+                name: 'light'
+            }, (err, tuple) => {
+                if (tuple.data.value > 100) {
+                    console.log("すでに電気ついてる");
+                } else {
+                    responseTuple.response = 'success';
+                    console.log('> response=' + JSON.stringify(responseTuple));
+                    moveServo(() => {
+                        ts.write(responseTuple);
+                    });
+                }
+            });
+        });
+
+        ts.watch({
+            where: "delta",
+            name: "light",
+            cmd: "off"
+        }, (err, tuple) => {
+            console.log("> " + JSON.stringify(tuple.data) + " (from:" + tuple.from + ")");
+            let responseTuple = tuple.data;
+
+            ts.take({
+                where: 'delta',
+                type: 'sensor',
+                name: 'light'
+            }, (err, tuple) => {
+                if (tuple.data.value < 100) {
+                    console.log("すでに消えている");
+                } else {
+                    responseTuple.response = 'success';
+                    console.log('> response=' + JSON.stringify(responseTuple));
+                    moveServo(() => {
+                        ts.write(responseTuple);
+                    });
+                }
+            });
         });
 
     });
